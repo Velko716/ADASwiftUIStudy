@@ -14,6 +14,17 @@ let project = Project(
                         "UIColorName": "",
                         "UIImageName": "",
                     ],
+                    "UIAppFonts": [
+                        "Pretendard-Bold.ttf",
+                        "Pretendard-Regular.ttf",
+                        "Pretendard-SemiBold.ttf",
+                        "Pretendard-Medium.ttf",
+                        "Pretendard-Black.ttf",
+                        "Pretendard-ExtraBold.ttf",
+                        "Pretendard-Thin.ttf",
+                        "Pretendard-Light.ttf",
+                        "Pretendard-ExtraLight.ttf"
+                    ]
                 ]
             ),
             sources: ["ADAStudyAssignment/Sources/**"],
