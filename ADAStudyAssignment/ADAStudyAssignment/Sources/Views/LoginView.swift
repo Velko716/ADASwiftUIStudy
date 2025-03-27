@@ -9,16 +9,16 @@ import SwiftUI
 
 struct LoginView: View {
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
-            Spacer().frame(height: 104)
+        VStack(alignment: .center, spacing: 104) { // default : 8
+            
             topGroup
-            Spacer().frame(height: 104)
             middleGroup
-            Spacer().frame(height: 104)
             bottomGroup
-            Spacer().frame(height: 62.95).ignoresSafeArea()
+            
         }//: VSTACK
         .padding(.horizontal, 19)
+        .padding(.bottom, 62.95)
+        .padding(.top, 104)
     }
     
     
@@ -37,27 +37,27 @@ struct LoginView: View {
                     
                     Group {
                         Text("안녕하세요.")
-                            .font(.mainTextExtraBold24)
-                        
                         Text("스타벅스입니다.")
-                            .font(.mainTextExtraBold24)
                             .padding(.bottom, 19)
+                        
                     }
+                    .font(.mainTextExtraBold24)
+                    
                     
                     
                     Text("화원 서비스 이용을 위해 로그인 해주세요")
                         .font(.mainTextMedium16)
                         .foregroundStyle(Color.gray01)
-                }
+                }//: VSTACK
                 Spacer()
             }
-        }
+        }//: HSTACK
     }
     
     
     // MARK: - MIDDLE
     private var middleGroup: some View {
-    
+        
         VStack(spacing: 0) {
             
             Group {
@@ -68,16 +68,13 @@ struct LoginView: View {
             Button(action: {
                 
             }, label: {
-                VStack(spacing: 0) {
-                    
-                    Text("로그인하기")
-                        .padding()
-                        .font(.mainTextMedium16)
-                        .tint(.white)
-                        
-                    
-                } //: VSTACK
-                   
+                
+                Text("로그인하기")
+                    .padding()
+                    .font(.mainTextMedium16)
+                    .tint(.white)
+                
+                
             })
             .frame(maxWidth: .infinity, maxHeight: 46)
             .background(Color.green01)
@@ -85,7 +82,7 @@ struct LoginView: View {
             
         }//: VSTACK
         
-
+        
     }
     
     
@@ -108,7 +105,7 @@ struct LoginView: View {
     // MARK: - 텍스트만 다르고 중복되는 뷰
     struct InputFieldLabel: View {
         var label: String
-
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 Text(label)
@@ -116,13 +113,13 @@ struct LoginView: View {
                     .foregroundStyle(Color.black01)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 1.98)
-
+                
                 Divider()
                     .padding(.bottom, 47)
             }
         }
     }
-
+    
     
 }
 
