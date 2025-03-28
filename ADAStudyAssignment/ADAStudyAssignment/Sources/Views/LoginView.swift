@@ -9,74 +9,70 @@ import SwiftUI
 
 struct LoginView: View {
     var body: some View {
-        VStack(alignment: .center, spacing: 104) { // default : 8
+        VStack(alignment: .center) {
             
             topGroup
+            Spacer()
             middleGroup
+            Spacer()
             bottomGroup
             
         }//: VSTACK
-        .padding(.horizontal, 19)
-        .padding(.bottom, 62.95)
-        .padding(.top, 104)
+      
+        .safeAreaPadding(EdgeInsets.init(top: 104, leading: 19, bottom: 62.95, trailing: 19))
     }
+    
+    
+    
     
     
     // MARK: - TOP
     private var topGroup: some View {
-        HStack(spacing: 0) {
-            Group {
-                VStack(alignment: .leading, spacing: 0) {
-                    
-                    Image("starbucksLogo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 97, height: 95)
-                        .padding(.bottom, 28)
-                    
-                    
-                    Group {
-                        Text("안녕하세요.")
-                        Text("스타벅스입니다.")
-                            .padding(.bottom, 19)
-                        
-                    }
-                    .font(.mainTextExtraBold24)
-                    
-                    
-                    
-                    Text("화원 서비스 이용을 위해 로그인 해주세요")
-                        .font(.mainTextMedium16)
-                        .foregroundStyle(Color.gray01)
-                }//: VSTACK
-                Spacer()
-            }
-        }//: HSTACK
+        VStack(alignment: .leading) {
+            
+            Image("starbucksLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 97, height: 95)
+                .padding(.bottom, 28)
+            
+            
+            Text("안녕하세요.\n스타벅스입니다.")
+                .padding(.bottom, 19)
+                .kerning(1.2)
+                .font(.mainTextExtraBold24)
+            
+            
+            Text("화원 서비스 이용을 위해 로그인 해주세요")
+                .font(.mainTextMedium16)
+                .foregroundStyle(Color.gray01)
+            
+        }//: VSTACK
+        .frame(maxWidth : .infinity, alignment: .leading)
     }
-    
+
     
     // MARK: - MIDDLE
     private var middleGroup: some View {
         
         VStack(spacing: 0) {
             
+            
             Group {
                 InputFieldLabel(label: "아이디")
                 InputFieldLabel(label: "비밀번호")
             }
-            
+        
             Button(action: {
                 
             }, label: {
-                
                 Text("로그인하기")
                     .padding()
                     .font(.mainTextMedium16)
                     .tint(.white)
-                
-                
             })
-            .frame(maxWidth: .infinity, maxHeight: 46)
+            .frame(height: 46)
+            .frame(maxWidth: .infinity)
             .background(Color.green01)
             .cornerRadius(20)
             
@@ -124,6 +120,17 @@ struct LoginView: View {
 }
 
 
-#Preview {
-    LoginView()
+//#Preview {
+//    LoginView()
+//}
+
+struct LoginView_Preview: PreviewProvider {
+    static var devices = ["iPhone 11", "iPhone 16 Pro Max"]
+    static var previews: some View {
+        ForEach(devices, id: \.self) { device in
+            LoginView()
+                .previewDevice(PreviewDevice(rawValue: device))
+                .previewDisplayName(device)
+        }
+    }
 }
