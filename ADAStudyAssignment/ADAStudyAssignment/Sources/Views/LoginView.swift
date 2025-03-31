@@ -7,7 +7,13 @@
 
 import SwiftUI
 
+
+
+
 struct LoginView: View {
+    
+    @State var loginVM: LoginViewModel = .init()
+    
     var body: some View {
         VStack(alignment: .center) {
             
@@ -57,11 +63,30 @@ struct LoginView: View {
         
         VStack(spacing: 0) {
             
-            
             Group {
-                InputFieldLabel(label: "아이디")
-                InputFieldLabel(label: "비밀번호")
+                TextField("아이디" ,text: $loginVM.id)
+                Divider()
+                    /// 🤔 커서 움직일 때, 색상 변경하기
+                    
+                
+                Spacer().frame(height: 47)
+                
+                
+                SecureField("비밀번호", text: $loginVM.pwd)
+                    
+                Divider()
             }
+            .padding(.bottom, 1.98)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .font(.mainTextRegular13)
+            .foregroundStyle(Color.black01)
+            
+            
+            Spacer().frame(height: 47)
+//            Group {
+//                InputFieldLabel(label: "아이디")
+//                InputFieldLabel(label: "비밀번호")
+//            }
         
             Button(action: {
                 
@@ -77,6 +102,7 @@ struct LoginView: View {
             .cornerRadius(20)
             
         }//: VSTACK
+        
         
         
     }

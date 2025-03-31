@@ -6,4 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
+@Observable
+class LoginViewModel {
+    var id: String = ""
+    var pwd: String = ""
+}
