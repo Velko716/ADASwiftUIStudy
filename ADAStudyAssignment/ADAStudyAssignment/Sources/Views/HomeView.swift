@@ -27,7 +27,7 @@ struct HomeView: View {
             }
             
             Tab("Other", image: "other") {
-                EmptyView()
+                OtherView()
             }
         }
         .tint(.green02) /// Assetes 이미지 오른쪽 Image Set에서 Render As를 Template Image로 변경해야함.

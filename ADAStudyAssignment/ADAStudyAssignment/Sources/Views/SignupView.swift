@@ -18,7 +18,6 @@ struct SignupView: View {
     
     var body: some View {
         VStack {
-                
          
             top
             
