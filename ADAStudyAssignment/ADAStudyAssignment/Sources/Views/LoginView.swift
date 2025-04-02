@@ -10,9 +10,16 @@ import SwiftUI
 
 
 
+
 struct LoginView: View {
     
     @State var loginVM: LoginViewModel = .init()
+    
+    @FocusState private var focus: FocusType?
+    
+    @State private var isIDFocused : Bool = false
+    @State private var isPwdFocused : Bool = false
+    
     
     var body: some View {
         VStack(alignment: .center) {
@@ -24,7 +31,6 @@ struct LoginView: View {
             bottomGroup
             
         }//: VSTACK
-      
         .safeAreaPadding(EdgeInsets.init(top: 104, leading: 19, bottom: 62.95, trailing: 19))
     }
     
@@ -65,21 +71,57 @@ struct LoginView: View {
             
             Group {
                 TextField("아이디" ,text: $loginVM.id)
-                Divider()
-                    /// 🤔 커서 움직일 때, 색상 변경하기
+                    .focused($focus, equals: .idTextField)
+                    
+                Rectangle()
+                    .foregroundStyle(isIDFocused ? Color.green01 : Color.gray00)
+                    .frame(height: 0.7)
+                
+                /// 🤔 Divider사용하면 background로 색을 변경해야하는데, 그러면 가로로 프레임이 넘쳐나는 문제
+                //Divider()
+//                    .foregroundStyle(.blue)
+                    //.background(isIDFocused ? Color.green01 : Color.gray00)
+                    
                     
                 
                 Spacer().frame(height: 47)
                 
                 
                 SecureField("비밀번호", text: $loginVM.pwd)
+                    .focused($focus, equals: .pwdTextField)
                     
-                Divider()
+                Rectangle()
+                    .foregroundStyle(isPwdFocused ? Color.green01 : Color.gray00)
+                    .frame(height: 0.7)
+
+                
+//                Divider()
+//                    .background(isPwdFocused ? Color.green01 : Color.gray00)
             }
             .padding(.bottom, 1.98)
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.mainTextRegular13)
             .foregroundStyle(Color.black01)
+            .onChange(of: focus) { /// onChange는 많이 안 사용하는게 좋음.
+                guard let focus = focus else { return }
+                switch focus {
+                case .idTextField:
+                    isIDFocused = true
+                case .pwdTextField:
+                    isPwdFocused = true
+                }
+            }
+            .onSubmit { // 입력 종료시
+                guard let focus = focus else { return }
+                switch focus {
+                case .idTextField:
+                    isIDFocused = false
+                case .pwdTextField:
+                    isPwdFocused = false
+                }
+            }
+            
+            
             
             
             Spacer().frame(height: 47)

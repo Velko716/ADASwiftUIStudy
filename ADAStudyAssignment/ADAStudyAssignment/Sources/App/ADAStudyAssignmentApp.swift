@@ -10,7 +10,7 @@ struct ADAStudyAssignmentApp: App {
         
         
         WindowGroup {
-            HomeView()
+            LoginView()
         }
     } 
 }
