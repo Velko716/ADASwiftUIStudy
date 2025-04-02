@@ -7,35 +7,41 @@
 
 import SwiftUI
 
+
+/// 🙂 전체 높이 인피니티 => 탑 중간 바텀 마다 Spacer로 조정
+
 struct OtherView: View {
     
     
     var body: some View {
-        
+        // ?
         VStack {
-            HStack {
-                Text("Other")
-                    .font(.mainTextBold24)
-                Spacer()
+            LabeledContent {
                 Button {
                     print("logout")
                 } label: {
                     Image("logout")
                         .frame(width: 35, height: 35)
                 }
-
+            } label: {
+                Text("Other")
+                    .font(.mainTextBold24)
+            }
+            .frame(maxWidth: .infinity)
+            //.padding(EdgeInsets(top: 28, leading: 23.5, bottom: 16, trailing: 23.5))
+            .frame(height: 36)
+            .padding(.horizontal, 23.5)
+            .padding(.top, 28)
+            .padding(.bottom, 16)
+        } //: VSTACK
+        
+        ZStack {
+            Color.gray07
+            
                 
-               
-                    
-            } //:HSTACK
-            .padding(EdgeInsets(top: 28, leading: 23.5, bottom: 16, trailing: 23.5))
-            
-            
-            
-            ZStack {
-                Color.gray07
                 
-                VStack {
+                
+            VStack {
                     Top()
                     Spacer()
                     
@@ -44,33 +50,26 @@ struct OtherView: View {
                     
                     Bottom()
                 }//: VSTACK
-                .padding(.vertical, 41)
-//                .navigationTitle("Other")
-//                .toolbar {
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        Button {
-//                            print("로그아웃")
-//                        } label: {
-//                            Image("logout")
-//                                .frame(width: 35, height: 35)
-//                        }
-//                    }
-//                }
-            }//: ZSTACK
-        } //: VSTACK
+//                    .frame(maxWidth: .infinity)
+//                    .frame(height: 683)
+                    .padding(.vertical, 41)
+    //                .navigationTitle("Other")
+    //                .toolbar {
+    //                    ToolbarItem(placement: .navigationBarTrailing) {
+    //                        Button {
+    //                            print("로그아웃")
+    //                        } label: {
+    //                            Image("logout")
+    //                                .frame(width: 35, height: 35)
+    //                        }
+    //                    }
+    //                }
+              
             
-           
-           
-            
+        }
+        .frame(maxHeight: .infinity) /// ⭐️ 고정프레임보다는?
         
-        
-        
-        
-        
-        
-      
-        
-        
+       
     }
 }
 
@@ -83,18 +82,22 @@ struct Top: View {
     var body: some View {
         VStack(spacing: 24) {
             
-            VStack(spacing: 5) {
+            VStack(alignment: .center, spacing: 5) {
+                
+                
                 Group {
                     Text("\(signupUserNickname)")
                         .foregroundStyle(Color.green01)
+                    
                     +
-                    Text(" 님\n 환영합니다!\(Image("hand"))")
+                    
+                    Text(" 님\n 환영합니다! \(Image("hand"))")
+                        
                 }
-                .font(.mainTextSemiBold24)
                 .multilineTextAlignment(.center)
+                .font(.mainTextSemiBold24)
                 
             } //:VSTACK
-            
            
             
             HStack(spacing: 10.5) {
@@ -108,12 +111,16 @@ struct Top: View {
                     
                     Button { print("나만의 메뉴") }
                      label: { TopButton(image: "my", label: "나만의 메뉴")  }
-                    
                 }
                 .frame(width: 102, height: 108)
-                
+                .shadow(color: .black.opacity(0.1), radius: 2.5, x: 0, y: 0)
             } //:HSTACK
+            .frame(width: 375, height: 108)
+            .padding(.horizontal, 24)
+            
         } //: VSTACK
+        .frame(maxWidth: .infinity)
+       
     }
 }
 
@@ -122,12 +129,19 @@ struct Top: View {
 // MARK: - Middle Pay
 struct Middle: View {
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
+            
+            
             Text("Pay")
                 .font(.mainTextSemiBold18)
+                .frame(maxWidth: 420, alignment: .leading)
+                .padding(.horizontal, 10)
+            
+            
             Spacer().frame(height: 8)
             
-            
+           
+                
             HStack {
                 Button {
                     print("스타벅스 카드 등록")
@@ -142,13 +156,11 @@ struct Middle: View {
                 } label: {
                     BottomButton(image: "cardChange", label: "카드 교환권 등록")
                 }
-                
-                
             } //: HSTACK
-            
+            .padding(.horizontal, 11)
             .padding(.vertical, 16)
             
-                        
+            
             HStack {
                 
                 Button {
@@ -167,14 +179,23 @@ struct Middle: View {
                 
                 
             } //: HSTACK
-            Divider()
+            .padding(.horizontal, 11)
             .padding(.vertical, 16)
+           
             
             
-            
-            
+            Divider()
         } //: VSTACK
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 11) //
+        .frame(maxWidth: .infinity)
+        
+       
+        
+        
+       
+        
+        
+        
         
         
     }
@@ -187,6 +208,7 @@ struct Bottom: View {
         VStack(alignment: .leading) {
             Text("고객지원")
                 .font(.mainTextSemiBold18)
+                .padding(.horizontal, 10)
             Spacer().frame(height: 8)
             
             
@@ -207,8 +229,8 @@ struct Bottom: View {
                 
                 
             } //: HSTACK
-            
             .padding(.vertical, 16)
+            .padding(.horizontal, 11)
                         
             HStack {
                 
@@ -228,6 +250,7 @@ struct Bottom: View {
                 
             } //: HSTACK
             .padding(.vertical, 16)
+            .padding(.horizontal, 11)
             
             
             HStack {
@@ -240,10 +263,13 @@ struct Bottom: View {
                 
             } //: HSTACK
             .padding(.vertical, 16)
+            .padding(.horizontal, 11)
             
             
         } //: VSTACK
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, 10)
+        
     }
 }
 
@@ -295,17 +321,16 @@ struct BottomButton: View {
     let label: String
     
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 8) {
             Image(image)
-                .frame(width: 32, height: 32)
+                .frame(width: 24, height: 16)
             Text(label)
                 .font(.mainTextSemiBold16)
                 .tint(.black02)
         } //:HSTACK
-        .frame(width: 157, height: 32, alignment: .leading)
-       
-        //.frame(alignment: .leading)
+        .frame(width: 157, alignment: .leading)
     }
+    
 }
 
 

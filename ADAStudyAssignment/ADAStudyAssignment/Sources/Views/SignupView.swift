@@ -82,7 +82,7 @@ struct SignupView: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 56)
-        .background(Color.green)
+        .background(Color.green01)
         .cornerRadius(20)
     }
 

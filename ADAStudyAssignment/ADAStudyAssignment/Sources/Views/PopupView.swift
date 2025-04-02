@@ -16,6 +16,7 @@ struct PopupView: View {
             Image("popupImage")
                 .resizable()
                 .scaledToFit()
+                .ignoresSafeArea()
                 
             
             Spacer()
