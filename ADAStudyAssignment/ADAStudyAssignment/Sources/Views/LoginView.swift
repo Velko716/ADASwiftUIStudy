@@ -22,16 +22,18 @@ struct LoginView: View {
     
     
     var body: some View {
-        VStack(alignment: .center) {
-            
-            topGroup
-            Spacer()
-            middleGroup
-            Spacer()
-            bottomGroup
-            
-        }//: VSTACK
-        .safeAreaPadding(EdgeInsets.init(top: 104, leading: 19, bottom: 62.95, trailing: 19))
+        NavigationStack {
+            VStack(alignment: .center) {
+                
+                topGroup
+                Spacer()
+                middleGroup
+                Spacer()
+                bottomGroup
+                
+            }//: VSTACK
+            .safeAreaPadding(EdgeInsets.init(top: 104, leading: 19, bottom: 62.95, trailing: 19))
+        }//: NAVIGATION
     }
     
     
@@ -109,6 +111,8 @@ struct LoginView: View {
                     isIDFocused = true
                 case .pwdTextField:
                     isPwdFocused = true
+                case .nickNameTextField:
+                    break
                 }
             }
             .onSubmit { // 입력 종료시
@@ -118,6 +122,8 @@ struct LoginView: View {
                     isIDFocused = false
                 case .pwdTextField:
                     isPwdFocused = false
+                case .nickNameTextField:
+                    break
                 }
             }
             
@@ -153,10 +159,16 @@ struct LoginView: View {
     // MARK: - BOTTOM
     private var bottomGroup: some View {
         VStack(spacing: 19) {
-            Text("이메일로 회원가입하기")
-                .font(.mainTextRegular12)
-                .foregroundStyle(Color.gray04)
-                .underline()
+            // FIXME: - 이렇게 해도 구현은 되지만, Route를 만들어보자!
+            /// NavigationLink(destination: <#T##() -> View#>, label: <#T##() -> View#>)
+            NavigationLink {
+                SignupView()
+            } label: {
+                Text("이메일로 회원가입하기")
+                    .font(.mainTextRegular12)
+                    .foregroundStyle(Color.gray04)
+                    .underline()
+            }
             
             Group {
                 Image("kakaoLoginButtonImage")

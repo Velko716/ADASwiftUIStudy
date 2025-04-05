@@ -12,8 +12,8 @@ struct LoginModel {
     let pwd: String
 }
 
-
-enum FocusType: Hashable {
+enum FocusType {
+    case nickNameTextField
     case idTextField
     case pwdTextField
 }
