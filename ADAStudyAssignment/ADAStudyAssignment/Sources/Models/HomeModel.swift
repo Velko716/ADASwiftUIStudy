@@ -25,7 +25,7 @@ import Foundation
 //}
 
 
-// MARK: - Card 모델 통합
+// MARK: - Card 모델
 struct CardModel: Identifiable {
     let id: String = UUID().uuidString
     let image: String
@@ -43,7 +43,8 @@ struct CoffeeModel: Identifiable {
     let detail: String
     let price: Int
     let isNew: Bool ///
-    let temperatureOption: DrinkTemperature?
+    let availableTemperatures: Set<DrinkTemperature>
+    
     
     enum DrinkTemperature: String, CaseIterable {
         case hot = "HOT"

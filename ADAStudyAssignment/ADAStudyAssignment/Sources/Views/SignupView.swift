@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignupView: View {
-    @Bindable var signupVM: SignupViewModel = .init()
+    @ObservedObject var signupVM: SignupViewModel = .init()
     
     /// 초기화 때문에.
     @State private var nickname = ""

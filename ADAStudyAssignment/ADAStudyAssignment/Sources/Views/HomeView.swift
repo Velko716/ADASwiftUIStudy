@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var selectedTab = 4
+    
     var body: some View {
         NavigationStack { /// NavigationLink 이용하기 위해
             TabView {
@@ -15,6 +17,7 @@ struct HomeView: View {
                     HomeDetailView()
                         .ignoresSafeArea(edges: .top) //top만 줘야함.
                 }
+                
                 
                 Tab("Pay", image: "pay") {
                     EmptyView()
@@ -32,6 +35,8 @@ struct HomeView: View {
                     OtherView()
                 }
             }
+            
+            .navigationBarBackButtonHidden()
             .tint(.green02) /// Assetes 이미지 오른쪽 Image Set에서 Render As를 Template Image로 변경해야함.
         }//: NAVIGATION
         
@@ -181,18 +186,24 @@ struct HomeTopBannerView: View {
 
 // MARK: - RecommendedMenuView 추천 메뉴
 struct RecommendedMenu: View {
-    var homeVM: HomeViewModel = .init()
     
+    var homeVM: HomeViewModel = .init()
+    @AppStorage("signupUserNickname") var signupUserNickname: String?
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("(설정 닉네임)님을 위한 추천 메뉴")
-                .font(.mainTextBold24)
-                .padding(.horizontal, 10)
+            Group {
+                Text(signupUserNickname ?? "(설정 닉네임)")
+                    .foregroundStyle(Color.brown)
+                +
+                Text("님을 위한 추천 메뉴")
+            }
+            .font(.mainTextBold24)
+            .padding(.horizontal, 10)
+            
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 16) { /// ⭐️ 데이터가 많을수록 LazyHStack이 더 효율적임 Grid로 안한이유
                     ForEach(homeVM.userRecommendedMenu) { card in
-                        
                         
                         NavigationLink {
                                 CoffeeDetailView(coffee: card)
@@ -204,18 +215,6 @@ struct RecommendedMenu: View {
                                     )
                                 }//: VSTACK
                             }
-                        
-                        
-//                        NavigationLink {
-//                            CoffeeDetailView(coffee: homeVM.userRecommendedMenu[index], image: nil)
-//                        } label: {
-//                            VStack(spacing: 10) {
-//                                CircleImageCard(
-//                                    image: homeVM.userRecommendedMenu[index].image,
-//                                    title: homeVM.userRecommendedMenu[index].title
-//                                )
-//                            }
-//                        }
                         
                     } //:LOOP
                 }//: LAZYHSTACK
@@ -238,18 +237,15 @@ struct NewsView: View {
                 .padding(.horizontal, 10)
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 16) { /// ⭐️ 데이터가 많을수록 LazyHStack이 더 효율적임 Grid로 안한이유
-                    ForEach(0 ..< homeVM.news.count, id: \.self) { index in
+                    ForEach(homeVM.news) { card in
                         
                         VStack(spacing: 10) {
                             NewsCard(
-                                image: homeVM.news[index].image,
-                                title: homeVM.news[index].title,
-                                detail: homeVM.news[index].detail ?? ""
+                                image: card.image,
+                                title: card.title,
+                                detail: card.detail ?? ""
                             )
                         } //: VSTACK
-                        
-                        
-                        
                     } //:LOOP
                 }//: LAZYHSTACK
             }//: SCROLL
@@ -272,12 +268,12 @@ struct DessertView: View {
                 .foregroundStyle(Color.black03)
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 16) { /// ⭐️ 데이터가 많을수록 LazyHStack이 더 효율적임 Grid로 안한이유
-                    ForEach(0 ..< homeVM.dessert.count, id: \.self) { index in
+                    ForEach(homeVM.dessert) { card in
                         
                         VStack(spacing: 10) {
                             CircleImageCard(
-                                image: homeVM.dessert[index].image,
-                                title: homeVM.dessert[index].title
+                                image: card.image,
+                                title: card.title
                             )
                         } //: VSTACK
                     } //:LOOP

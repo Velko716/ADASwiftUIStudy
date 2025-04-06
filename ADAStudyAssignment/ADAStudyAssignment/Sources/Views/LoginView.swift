@@ -20,6 +20,11 @@ struct LoginView: View {
     @State private var isIDFocused : Bool = false
     @State private var isPwdFocused : Bool = false
     
+    @State private var id: String = ""
+    @State private var pwd: String = ""
+    
+    
+    
     
     var body: some View {
         NavigationStack {
@@ -68,89 +73,87 @@ struct LoginView: View {
     
     // MARK: - MIDDLE
     private var middleGroup: some View {
-        
-        VStack(spacing: 0) {
-            
-            Group {
-                TextField("아이디" ,text: $loginVM.id)
-                    .focused($focus, equals: .idTextField)
-                    
-                Rectangle()
-                    .foregroundStyle(isIDFocused ? Color.green01 : Color.gray00)
-                    .frame(height: 0.7)
+        NavigationStack {
+            VStack(spacing: 0) {
                 
-                /// 🤔 Divider사용하면 background로 색을 변경해야하는데, 그러면 가로로 프레임이 넘쳐나는 문제
-                //Divider()
-//                    .foregroundStyle(.blue)
+                Group {
+                    TextField("아이디" ,text: $id)
+                        .focused($focus, equals: .idTextField)
+                    
+                    Rectangle()
+                        .foregroundStyle(isIDFocused ? Color.green01 : Color.gray00)
+                        .frame(height: 0.7)
+                    
+                    /// 🤔 Divider사용하면 background로 색을 변경해야하는데, 그러면 가로로 프레임이 넘쳐나는 문제
+                    //Divider()
+                    //                    .foregroundStyle(.blue)
                     //.background(isIDFocused ? Color.green01 : Color.gray00)
                     
                     
+                    
+                    Spacer().frame(height: 47)
+                    
+                    
+                    SecureField("비밀번호", text: $pwd)
+                        .focused($focus, equals: .pwdTextField)
+                    
+                    Rectangle()
+                        .foregroundStyle(isPwdFocused ? Color.green01 : Color.gray00)
+                        .frame(height: 0.7)
+                    
+                    
+                    //                Divider()
+                    //                    .background(isPwdFocused ? Color.green01 : Color.gray00)
+                }
+                .padding(.bottom, 1.98)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.mainTextRegular13)
+                .foregroundStyle(Color.black01)
+                .onChange(of: focus) { /// onChange는 많이 안 사용하는게 좋음.
+                    guard let focus = focus else { return }
+                    switch focus {
+                    case .idTextField:
+                        isIDFocused = true
+                    case .pwdTextField:
+                        isPwdFocused = true
+                    case .nickNameTextField:
+                        break
+                    }
+                }
+                .onSubmit { // 입력 종료시
+                    guard let focus = focus else { return }
+                    switch focus {
+                    case .idTextField:
+                        isIDFocused = false
+                    case .pwdTextField:
+                        isPwdFocused = false
+                    case .nickNameTextField:
+                        break
+                    }
+                }
+                
+                
+                
                 
                 Spacer().frame(height: 47)
                 
                 
-                SecureField("비밀번호", text: $loginVM.pwd)
-                    .focused($focus, equals: .pwdTextField)
-                    
-                Rectangle()
-                    .foregroundStyle(isPwdFocused ? Color.green01 : Color.gray00)
-                    .frame(height: 0.7)
-
                 
-//                Divider()
-//                    .background(isPwdFocused ? Color.green01 : Color.gray00)
-            }
-            .padding(.bottom, 1.98)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .font(.mainTextRegular13)
-            .foregroundStyle(Color.black01)
-            .onChange(of: focus) { /// onChange는 많이 안 사용하는게 좋음.
-                guard let focus = focus else { return }
-                switch focus {
-                case .idTextField:
-                    isIDFocused = true
-                case .pwdTextField:
-                    isPwdFocused = true
-                case .nickNameTextField:
-                    break
+                NavigationLink {
+                    HomeView()
+                } label: {
+                    Text("로그인하기")
+                        .padding()
+                        .font(.mainTextMedium16)
+                        .tint(.white)
                 }
-            }
-            .onSubmit { // 입력 종료시
-                guard let focus = focus else { return }
-                switch focus {
-                case .idTextField:
-                    isIDFocused = false
-                case .pwdTextField:
-                    isPwdFocused = false
-                case .nickNameTextField:
-                    break
-                }
-            }
-            
-            
-            
-            
-            Spacer().frame(height: 47)
-//            Group {
-//                InputFieldLabel(label: "아이디")
-//                InputFieldLabel(label: "비밀번호")
-//            }
-        
-            Button(action: {
+                .frame(height: 46)
+                .frame(maxWidth: .infinity)
+                .background(Color.green01)
+                .cornerRadius(20)
                 
-            }, label: {
-                Text("로그인하기")
-                    .padding()
-                    .font(.mainTextMedium16)
-                    .tint(.white)
-            })
-            .frame(height: 46)
-            .frame(maxWidth: .infinity)
-            .background(Color.green01)
-            .cornerRadius(20)
-            
-        }//: VSTACK
-        
+            }//: VSTACK
+        }//: NAVIGATION
         
         
     }

@@ -9,17 +9,20 @@ import Foundation
 import SwiftUI
 
 
-@Observable
-class SignupViewModel {
+/// @Observable 매크로를 사용하면, 이 클래스에 @AppStorage를 사용할 수 없음. 대신 ObservableObject를 사용하면 사용이 가능하다.
+class SignupViewModel: ObservableObject {
     
-    var signupUser: SignupModel = .init(nickname: "", email: "", pwd: "")
-
+    @Published var signupUser: SignupModel = .init(nickname: "", email: "", pwd: "")
+    
+    @AppStorage("signupUserNickname") var signupUserNickname: String = ""
+    @AppStorage("signupUserEmail") var signupUserEmail = ""
+    @AppStorage("signupUserPwd") var signupUserPwd: String = ""
     
     func createUser() {
         // @AppStorage 기본 타입만 지정가능
-        @AppStorage("signupUserNickname") var signupUserNickname: String = self.signupUser.nickname
-        @AppStorage("signupUserEmail") var signupUserEmail = self.signupUser.email
-        @AppStorage("signupUserPwd") var signupUserPwd: String = self.signupUser.pwd
+        self.signupUserNickname = self.signupUser.nickname
+        self.signupUserEmail = self.signupUser.email
+        self.signupUserPwd = self.signupUser.pwd
         self.signupUser = .init(nickname: "", email: "", pwd: "")
         
     }

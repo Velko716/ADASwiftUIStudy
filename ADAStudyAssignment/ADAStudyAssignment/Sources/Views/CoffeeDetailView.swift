@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct CoffeeDetailView: View {
-    //@State private var selected = "HOT"
-    //let options = ["HOT", "ICED"]
+
 
     let coffee: CoffeeModel
     
@@ -114,7 +113,13 @@ struct TitleView: View {
 // MARK: - BottomView
 struct DetailPriceView: View {
     let coffee: CoffeeModel
-    @State private var selected: CoffeeModel.DrinkTemperature = .iced
+    @State private var selected: CoffeeModel.DrinkTemperature
+    
+    init(coffee: CoffeeModel) {
+            self.coffee = coffee
+            _selected = State(initialValue: coffee.availableTemperatures.first ?? .hot)
+    }
+    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -127,33 +132,74 @@ struct DetailPriceView: View {
                 .foregroundStyle(Color.black03)
         } //: VSTACK
         
+        
         HStack(spacing: 0) {
-            ForEach(CoffeeModel.DrinkTemperature.allCases, id: \.self) { temp in
-                let isSelected = selected == temp
-                let textColor: Color = isSelected ? .blue : .gray
-
-                Text(temp.rawValue)
-                    .font(.mainTextSemiBold18)
-                    .foregroundColor(textColor)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .background(
-                        isSelected
-                        ? AnyView(
-                            Color.white
-                                .clipShape(Capsule())
-                                .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 2)
+            if coffee.availableTemperatures.count == 1 { /// Only
+                if coffee.availableTemperatures.contains(.hot) {
+                    Text("HOT ONLY")
+                        .font(.mainTextSemiBold18)
+                        .foregroundColor(.red)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 50)
+                                .fill(Color.white)
+                                .frame(height: 36)
+                                
                         )
-                        : AnyView(Color.clear)
-                    )
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        withAnimation {
-                            selected = temp
+                } else {
+                    Text("ICED ONLY")
+                        .font(.mainTextSemiBold18)
+                        .foregroundColor(.blue)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 50)
+                                .fill(Color.white)
+                                .frame(height: 36)
+                        )
+                }
+            } else {
+                ForEach(CoffeeModel.DrinkTemperature.allCases, id: \.self) { temp in
+                    let isSelected = selected == temp
+                    let textColor: Color = {
+                        if isSelected {
+                            switch temp {
+                            case .hot: return Color.red.opacity(0.6)
+                            case .iced: return Color.blue01.opacity(0.6)
+                            }
+                        } else {
+                            return .gray
                         }
-                    }
+                    }()
+
+                    Text(temp.rawValue)
+                        .font(.mainTextSemiBold18)
+                        .foregroundColor(textColor)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(
+                            Group {
+                                if isSelected {
+                                    Color.white
+                                        .frame(height: 36)
+                                        .clipShape(Capsule())
+                                        .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 2)
+                                } else {
+                                    Color.clear
+                                }
+                            }
+                        )
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            withAnimation {
+                                selected = temp
+                            }
+                        }
+                }
             }
         }
+        .frame(height: 36)
         .padding(4)
         .background(Color.gray.opacity(0.2))
         .clipShape(Capsule())
@@ -214,7 +260,7 @@ struct OrderButtonView: View {
             detail: "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료로서, 뜨거운 커피의 맛과 차갑고 달콤한 생크림의 맛을 같이 즐길 수 있는 커피 음료",
             price: 4100,
             isNew: true,
-            temperatureOption: .hot
+            availableTemperatures: [.hot]
         )
     )
 }

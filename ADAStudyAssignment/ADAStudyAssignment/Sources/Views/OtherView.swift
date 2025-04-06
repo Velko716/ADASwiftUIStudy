@@ -12,13 +12,14 @@ import SwiftUI
 
 struct OtherView: View {
     
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         // ?
         VStack {
             LabeledContent {
                 Button {
-                    print("logout")
+                    dismiss()
                 } label: {
                     Image("logout")
                         .frame(width: 35, height: 35)
