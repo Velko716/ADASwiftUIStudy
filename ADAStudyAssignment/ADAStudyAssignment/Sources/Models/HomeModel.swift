@@ -50,7 +50,4 @@ struct CoffeeModel: Identifiable {
         case hot = "HOT"
         case iced = "ICED"
     }
-    
-    
-    
 }

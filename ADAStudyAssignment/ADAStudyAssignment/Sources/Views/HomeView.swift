@@ -53,15 +53,28 @@ struct HomeDetailView: View {
         ScrollView {
             HomeBannerView()
             
-            RecommendedMenu()
             
+            LazyVStack(spacing: 20) {
+            
+            // HomeBottomBanner
+            Image("bearBanner")
+                
+                
+            RecommendedMenu()
+                
+                
             Image("eventBanner")
             Image("serviceSuscibe")
+                
+           
+            
             
             NewsView()
+                
+            } //: VSTACK
             
             /// 중간 배너
-            VStack(spacing: 14) {
+            LazyVStack(spacing: 14) {
                 Image("mugcupBanner")
                 Image("onlineStoreBanner")
                 Image("deliveryBanner")
@@ -70,7 +83,7 @@ struct HomeDetailView: View {
             
             DessertView()
             
-            VStack(spacing: 20) {
+            LazyVStack(spacing: 20) {
                 Image("coldBrewBanner")
                 Image("signatureDrinkBanner")
                 Image("makeBanner")
@@ -89,8 +102,7 @@ struct HomeBannerView: View {
     var body: some View {
         HomeTopBannerView()
         
-        // HomeBottomBanner
-        Image("bearBanner")
+       
         
         
     }
@@ -99,7 +111,7 @@ struct HomeBannerView: View {
 // MARK: - TopBannerView
 struct HomeTopBannerView: View {
     var body: some View {
-        ZStack(alignment: .leading) {
+        ZStack {
             
             Image("rabitBackground")
                 .resizable()
@@ -133,7 +145,7 @@ struct HomeTopBannerView: View {
                     .frame(maxWidth: .infinity)
                     //.frame(width: 255.79, alignment: .leading)
 
-                    Spacer()
+                    //Spacer()
                     
                     VStack(alignment: .trailing, spacing: 0) {
                         Button {
@@ -231,7 +243,7 @@ struct NewsView: View {
     var homeVM: HomeViewModel = .init()
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 25) {
             Text("Wtaht's New")
                 .font(.mainTextBold24)
                 .padding(.horizontal, 10)
@@ -262,7 +274,7 @@ struct DessertView: View {
     
     var body: some View {
         /// 하루가 달콤해지는 디저트
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 16) {
             Text("하루가 달콤해지는 디저트")
                 .font(.mainTextSemiBold24)
                 .foregroundStyle(Color.black03)

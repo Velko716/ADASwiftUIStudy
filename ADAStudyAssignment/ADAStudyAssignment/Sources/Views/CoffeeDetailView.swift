@@ -27,9 +27,20 @@ struct CoffeeDetailView: View {
             
             Spacer()
             
-            DetailPriceView(coffee: coffee)
+            VStack(alignment: .leading, spacing: 20) {
+                Text(coffee.detail)
+                    .font(.mainTextSemiBold14)
+                    .foregroundStyle(Color.gray06)
+                
+                Text("\(coffee.price)원")
+                    .font(.mainTextBold24)
+                    .foregroundStyle(Color.black03)
+            } //: VSTACK
+            
             
             Spacer()
+            
+            DetailPriceView(coffee: coffee)
             
             OrderButtonView()
 
@@ -58,27 +69,54 @@ struct ImageTopView: View {
                     Button {
                         print("share")
                     } label: {
-                        Circle()
+                        Image("shar")
+                            .resizable()
+                            .scaledToFit()
                             .frame(width: 32, height: 32)
-                            .foregroundStyle(.black)
-                            .opacity(0.4)
-                            .overlay {
-                                Image(systemName: "square.and.arrow.up")
-                                    .foregroundStyle(Color.gray00)
-                            }
+//                        ZStack {
+//                            Circle()
+//                                .frame(width: 32, height: 32)
+//                                .foregroundStyle(.black)
+//                                .opacity(0.4)
+//                                .overlay(alignment: .center) {
+//                                    Image(systemName: "square.and.arrow.up")
+//                                        .foregroundStyle(Color.gray00)
+//                                        .frame(width: 32, height: 32)
+//                                }
+//                        }
                     }
                 } label: {
                     Button {
                         dismiss()
                     } label: {
-                        Circle()
+                        Image("circleBack")
+                            .resizable()
+                            .scaledToFit()
                             .frame(width: 32, height: 32)
-                            .foregroundStyle(.black)
-                            .opacity(0.4)
-                            .overlay {
-                                Image(systemName: "lessthan")
-                                    .foregroundStyle(Color.gray00)
-                            }
+                        
+                        
+//                        ZStack {
+//                            Circle()
+//                                .frame(width: 32, height: 32)
+//                                .foregroundStyle(.black)
+//                                .opacity(0.4)
+//                                .overlay(alignment: .center) {
+//                                    Image(systemName: "lessthan")
+//                                        .foregroundStyle(Color.gray00)
+//                                        .frame(width: 32, height: 32)
+//                                }
+//                        }
+                        
+                        
+//                        Circle()
+//                            .frame(width: 32, height: 32)
+//                            .foregroundStyle(.black)
+//                            .opacity(0.4)
+//                            .overlay(alignment: .center) {
+//                                Image(systemName: "lessthan")
+//                                    .foregroundStyle(Color.gray00)
+//                                    .frame(width: 32, height: 32)
+//                            }
                     }
                 }
                 .padding(.horizontal, 16)
@@ -91,17 +129,19 @@ struct TitleView: View {
     let coffee: CoffeeModel
     
     var body: some View {
-        HStack(spacing: 4) {
-            Text(coffee.title)
-                .font(.mainTextSemiBold24)
-                .foregroundStyle(Color.black03)
-            
-            
-            
-            Image(coffee.isNew ? "new" : "")
-            
-            Spacer()
-        } //:HSTACK
+        VStack(spacing: 4) {
+            HStack(spacing: 4) {
+                Text(coffee.title)
+                    .font(.mainTextSemiBold24)
+                    .foregroundStyle(Color.black03)
+                
+                
+                
+                Image(coffee.isNew ? "new" : "")
+                
+                Spacer()
+            } //:HSTACK
+        }//: VSTACK
         
         
         Text(coffee.englishTitle)
@@ -117,20 +157,12 @@ struct DetailPriceView: View {
     
     init(coffee: CoffeeModel) {
             self.coffee = coffee
-            _selected = State(initialValue: coffee.availableTemperatures.first ?? .hot)
+            _selected = State(initialValue: coffee.availableTemperatures.first ?? .hot) /// State 타입 자체에 대한 접근
     }
     
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text(coffee.detail)
-                .font(.mainTextSemiBold14)
-                .foregroundStyle(Color.gray06)
-            
-            Text("\(coffee.price)원")
-                .font(.mainTextBold24)
-                .foregroundStyle(Color.black03)
-        } //: VSTACK
+        
         
         
         HStack(spacing: 0) {

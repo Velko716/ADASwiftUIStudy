@@ -12,12 +12,16 @@ struct CircleImageCard: View {
     let title: String
     
     var body: some View {
-        Image(image)
-            .frame(width: 130, height: 130)
+        VStack(spacing: 10) {
+            Image(image)
+                .frame(width: 130, height: 130)
             
-        Text(title)
-            .font(.mainTextSemiBold14)
-            .foregroundStyle(Color.black02)
+            Text(title)
+                .font(.mainTextSemiBold14)
+                .foregroundStyle(Color.black02)
+        } //:VSTACK
+        
+        
     }
 }
 

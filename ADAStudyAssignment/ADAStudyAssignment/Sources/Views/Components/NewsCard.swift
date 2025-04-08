@@ -16,18 +16,21 @@ struct NewsCard: View {
         VStack(alignment: .leading, spacing: 0) {
             Image(image)
             
+            Spacer().frame(height: 16)
             
             Text(title)
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(Color.black02)
             
+            Spacer().frame(height: 9)
             
             Text(detail)
                 .font(.mainTextRegular13)
                 .foregroundStyle(Color.gray03)
             
         } //:VSTACK
-        .frame(width: 240, height: 249)
+        .frame(width: 260)
+        .frame(height: 280)
     }
 }
 
