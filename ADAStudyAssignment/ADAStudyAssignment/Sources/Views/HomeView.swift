@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var selectedTab = 4
+    @StateObject var shopVM: ShopViewModel
     
     var body: some View {
         NavigationStack { /// NavigationLink 이용하기 위해
@@ -28,16 +29,17 @@ struct HomeView: View {
                 }
                 
                 Tab("Shop", image: "shop") {
-                    EmptyView()
+                    ShopView()
+                        .environmentObject(shopVM) // 의존성 주입
                 }
                 
                 Tab("Other", image: "other") {
                     OtherView()
                 }
             }
-            
             .navigationBarBackButtonHidden()
             .tint(.green02) /// Assetes 이미지 오른쪽 Image Set에서 Render As를 Template Image로 변경해야함.
+            ///
         }//: NAVIGATION
         
     }
@@ -299,5 +301,5 @@ struct DessertView: View {
 
 
 #Preview {
-    HomeView()
+    HomeView(shopVM: ShopViewModel(products: []))
 }

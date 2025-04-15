@@ -140,7 +140,7 @@ struct LoginView: View {
                 
                 
                 NavigationLink {
-                    HomeView()
+                    HomeView(shopVM: ShopViewModel(products: [])) // FIXME: - 고쳐야됨
                 } label: {
                     Text("로그인하기")
                         .padding()
