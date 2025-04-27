@@ -17,6 +17,7 @@ struct HomeView: View {
                 Tab("Home", image: "home") {
                     HomeDetailView()
                         .ignoresSafeArea(edges: .top) //top만 줘야함.
+                        
                 }
                 
                 
@@ -41,6 +42,7 @@ struct HomeView: View {
             .tint(.green02) /// Assetes 이미지 오른쪽 Image Set에서 Render As를 Template Image로 변경해야함.
             ///
         }//: NAVIGATION
+        
         
     }
 }
@@ -94,6 +96,9 @@ struct HomeDetailView: View {
             
             
             
+        }
+        .onAppear { // 광고 팝업창
+            PopupView()
         }
         
     }

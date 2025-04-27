@@ -141,6 +141,7 @@ struct LoginView: View {
                 
                 NavigationLink {
                     HomeView(shopVM: ShopViewModel(products: [])) // FIXME: - 고쳐야됨
+                    // TODO: 여기다가 광고 팝업창 일정 확률로 생기게 넣으면 될뜻
                 } label: {
                     Text("로그인하기")
                         .padding()

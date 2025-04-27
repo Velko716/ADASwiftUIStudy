@@ -16,26 +16,27 @@ struct OtherView: View {
     
     var body: some View {
         // ?
-        VStack {
-            LabeledContent {
-                Button {
-                    dismiss()
+        NavigationStack { // FIXME: - 이렇게 구현하면 안됨. 임시!
+            VStack {
+                LabeledContent {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image("logout")
+                            .frame(width: 35, height: 35)
+                    }
                 } label: {
-                    Image("logout")
-                        .frame(width: 35, height: 35)
+                    Text("Other")
+                        .font(.mainTextBold24)
                 }
-            } label: {
-                Text("Other")
-                    .font(.mainTextBold24)
-            }
-            .frame(maxWidth: .infinity)
-            //.padding(EdgeInsets(top: 28, leading: 23.5, bottom: 16, trailing: 23.5))
-            .frame(height: 36)
-            .padding(.horizontal, 23.5)
-            .padding(.top, 28)
-            .padding(.bottom, 16)
-        } //: VSTACK
-        
+                .frame(maxWidth: .infinity)
+                //.padding(EdgeInsets(top: 28, leading: 23.5, bottom: 16, trailing: 23.5))
+                .frame(height: 36)
+                .padding(.horizontal, 23.5)
+                .padding(.top, 28)
+                .padding(.bottom, 16)
+            } //: VSTACK
+       
         ZStack {
             Color.gray07
             
@@ -70,7 +71,7 @@ struct OtherView: View {
         }
         .frame(maxHeight: .infinity) /// ⭐️ 고정프레임보다는?
         
-       
+        }//: NAVIGATION
     }
 }
 
@@ -107,8 +108,18 @@ struct Top: View {
                     Button { print("별 히스토리") }
                      label: { TopButton(image: "starHistory", label: "별 히스토리")  }
 
-                    Button { print("전자영수증") }
-                     label: { TopButton(image: "receipt", label: "전자영수증")  }
+                   
+                    // 전자 영수증
+                    NavigationLink {
+                        ElectronicReceipt()
+                            //.navigationTitle("전자영수증")
+                            //.navigationBarTitleDisplayMode(.inline)
+                            .navigationBarBackButtonHidden()
+                    } label: {
+                        TopButton(image: "receipt", label: "전자영수증")
+                    }
+
+                    
                     
                     Button { print("나만의 메뉴") }
                      label: { TopButton(image: "my", label: "나만의 메뉴")  }
